@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre de la Empresa | Soluciones Verdes</title>
+    
+    <style>
+        /* --- RESET BÁSICO Y FUENTES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Evita que los scrolls horizontales accidentales rompan el responsive */
+            overflow-x: hidden; 
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #FFFFFF;
+            color: #333333;
+        }
+
+        /* --- VARIABLES DE COLOR (Ajustes para más blanco y gris) --- */
+        :root {
+            --color-principal-verde: #008744; /* Verde Esmeralda/Profesional */
+            --color-fondo-oscuro: #212121; /* Negro Oscuro */
+            --color-fondo-secundario: #F8F8F8; /* Gris muy claro (Casi blanco) */
+            --color-fondo-claro: #FFFFFF; /* Blanco Puro */
+            --color-texto-claro: #FFFFFF;
+        }
+
+        /* --- DISEÑO DE LAS SECCIONES GENERALES --- */
+        .section-content {
+            padding: 60px 5%; 
+            text-align: center;
+        }
+
+        .bg-dark {
+            background-color: var(--color-fondo-oscuro);
+            color: var(--color-texto-claro);
+        }
+
+        .bg-verde {
+            background-color: var(--color-principal-verde);
+            color: var(--color-fondo-oscuro); 
+        }
+
+        h1, h2, h3 {
+            margin-bottom: 20px;
+        }
+
+        /* --- ESTILOS PARA IMÁGENES Y MEDIA --- */
+        img {
+            max-width: 100%;
+            height: auto; 
+            display: block;
+        }
+
+        .img-full-width {
+            margin: 40px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- 1. ENCABEZADO Y NAVEGACIÓN (HEADER) --- */
+        header {
+            background-color: var(--color-fondo-oscuro);
+            color: var(--color-texto-claro);
+            padding: 15px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--color-principal-verde);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li a {
+            color: var(--color-texto-claro);
+            text-decoration: none;
+            padding: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: var(--color-principal-verde);
+        }
+
+        /* --- 2. SECCIÓN PRINCIPAL (HERO) y BOTONES --- */
+        .hero {
+            background-color: #333333; /* Gris oscuro para el fondo del hero */
+            color: var(--color-texto-claro);
+            padding: 100px 5%; 
+            text-align: center;
+        }
+
+        .btn-principal {
+            display: inline-block;
+            background-color: var(--color-principal-verde);
+            color: var(--color-fondo-oscuro);
+            padding: 10px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-principal:hover {
+            background-color: #007038; /* Verde ligeramente más oscuro */
+        }
+
+        .btn-secundario {
+            display: block;
+            width: 100%;
+            background-color: var(--color-fondo-oscuro);
+            color: var(--color-principal-verde);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .btn-secundario:hover {
+            background-color: #333333;
+            color: var(--color-principal-verde);
+        }
+
+
+        /* --- 4. CARRUSEL (Rotativo) --- */
+        .carousel-container {
+            width: 90%;
+            max-width: 900px; /* Limita el ancho en pantallas grandes */
+            margin: 40px auto;
+            overflow: hidden; 
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out; 
+        }
+
+        .carousel-slide {
+            min-width: 100%; 
+            box-sizing: border-box;
+            text-align: center;
+            padding: 30px;
+            background-color: var(--color-fondo-oscuro);
+        }
+
+        .img-carousel {
+            width: 100%;
+            max-height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .carousel-slide h3 {
+            color: var(--color-principal-verde);
+        }
+
+        .carousel-nav {
+            text-align: center;
+            padding: 15px 0 0;
+        }
+
+        .carousel-dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #555;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--color-principal-verde);
+        }
+
+        /* --- 5. GALERÍA DE VIDEOS --- */
+        .galeria-videos-grid {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 1fr; /* Móvil: 1 columna */
+            margin-top: 30px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* Proporción 16:9 */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* --- 6. FORMULARIO DE COTIZACIÓN --- */
+        .form-cotizacion {
+            max-width: 500px;
+            margin: 0 auto 20px;
+            padding: 20px;
+            background-color: var(--color-fondo-claro);
+            border-radius: 8px;
+        }
+
+        .form-cotizacion input, .form-cotizacion textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-cotizacion textarea {
+            resize: vertical;
+            height: 100px;
+        }
+
+
+        /* --- 7. SECCIÓN DE CONTACTO Y UBICACIÓN --- */
+        .contacto-flex {
+            display: flex;
+            flex-wrap: wrap; 
+            gap: 30px;
+            text-align: left;
+            margin-top: 30px;
+        }
+
+        .contacto-info, .contacto-mapa {
+            flex: 1; 
+            min-width: 300px; 
+            padding: 20px;
+            background-color: var(--color-fondo-secundario); /* Gris claro */
+            border-radius: 8px;
+        }
+
+        .contacto-info a {
+            color: var(--color-principal-verde);
+            text-decoration: none;
+        }
+
+        .redes-sociales {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .contacto-mapa iframe {
+            display: block;
+            border-radius: 4px;
+        }
+
+
+        /* --- 8. PIE DE PÁGINA (FOOTER) --- */
+        footer {
+            background-color: var(--color-fondo-oscuro);
+            color: #999999;
+            text-align: center;
+            padding: 20px 5%;
+            font-size: 0.9em;
+        }
+
+        /* --- RESPONSIVE: AJUSTES PARA PANTALLAS MÁS GRANDES --- */
+        @media (min-width: 768px) {
+            .galeria-videos-grid {
+                grid-template-columns: repeat(2, 1fr); 
+            }
+        }
+
+        @media (max-width: 650px) {
+            .contacto-flex {
+                flex-direction: column; 
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <div class="logo">NOMBRE EMPRESA</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                <li><a href="productos.html">Productos & Servicios</a></li> 
+                <li><a href="#cotizacion">Cotización</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <h1>Impulsamos tu Negocio con Soluciones Verdes</h1>
+        <p>Expertos en [Tu área de negocio]. Calidad y compromiso en cada proyecto.</p>
+        <a href="#cotizacion" class="btn-principal">¡Pide tu Cotización Hoy!</a>
+    </section>
+
+    <section id="quienes-somos" class="section-content">
+        <h2>¿Quiénes Somos?</h2>
+        <p>Somos una empresa dedicada a [servicio principal]. Nuestra misión es [Misión]. Creemos firmemente en la sostenibilidad y la innovación. Llevamos 10 años en el mercado ofreciendo las mejores soluciones.</p>
+        
+        <img src="images/equipo.jpg" alt="Foto del equipo de la empresa" class="img-full-width"> 
+        
+    </section>
+
+    <section id="productos" class="section-content bg-dark">
+        <h2 style="color: var(--color-principal-verde);">Nuestros Servicios Destacados</h2>
+        
+        <div class="carousel-container">
+            <div class="carousel-track">
+                
+                <div class="carousel-slide">
+                    <img src="images/carousel-1.jpg" alt="Servicio 1" class="img-carousel">
+                    <h3>Diseño e Instalación</h3>
+                    <p>Creamos soluciones a medida con la más alta tecnología. ¡Garantía total!</p>
+                </div>
+                
+                <div class="carousel-slide">
+                    <img src="images/carousel-2.jpg" alt="Servicio 2" class="img-carousel">
+                    <h3>Mantenimiento Proactivo</h3>
+                    <p>Planes de soporte que previenen problemas antes de que ocurran.</p>
+                </div>
+
+                <div class="carousel-slide">
+                    <img src="images/carousel-3.jpg" alt="Servicio 3" class="img-carousel">
+                    <h3>Venta y Distribución</h3>
+                    <p>Equipos eficientes y duraderos para cualquier escala de proyecto.</p>
+                </div>
+
+            </div>
+            <div class="carousel-nav"></div>
+        </div>
+        
+        <a href="productos.html" class="btn-principal" style="margin-top: 40px;">Ver Catálogo Completo</a>
+
+    </section>
+
+    <section class="section-content">
+        <h2>Mira Nuestro Trabajo</h2>
+        <div class="galeria-videos-grid">
+            
+            <div class="video-container">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/EJEMPLO1" 
+                    title="Video de proyecto 1" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="video-container">
+                <iframe 
+                    width="560" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/EJEMPLO2" 
+                    title="Video de proyecto 2" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="cotizacion" class="section-content bg-verde">
+        <h2>Solicita una Cotización</h2>
+        <form action="#" method="POST" class="form-cotizacion">
+            <input type="text" name="nombre" placeholder="Tu Nombre" required>
+            <input type="email" name="email" placeholder="Tu Correo Electrónico" required>
+            <textarea name="mensaje" placeholder="Describe tu necesidad o producto de interés..." required></textarea>
+            <button type="submit" class="btn-secundario">Enviar Solicitud</button>
+        </form>
+        <p class="nota-importante">Nota: La funcionalidad de envío de este formulario es el siguiente paso.</p>
+    </section>
+    
+    <section id="contacto" class="section-content">
+        <h2>Contáctanos y Visítanos</h2>
+        <div class="contacto-flex">
+            <div class="contacto-info">
+                <h3>Información de Contacto</h3>
+                <p><strong>Teléfono:</strong> <a href="tel:+1234567890">+123 456 7890</a></p>
+                <p><strong>Email:</strong> <a href="mailto:info@tuempresa.com">info@tuempresa.com</a></p>
+                <p><strong>Dirección:</strong> Calle Ejemplo #123, Ciudad, País.</p>
+                <div class="redes-sociales">
+                    <a href="https://facebook.com/tuempresa" target="_blank" class="social-icon">Facebook</a> |
+                    <a href="https://instagram.com/tuempresa" target="_blank" class="social-icon">Instagram</a>
+                </div>
+            </div>
+
+            <div class="contacto-mapa">
+                <h3>Nuestra Ubicación</h3>
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1!2d-69.954!3d18.472!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDI4JzIwLjkiTiA2OcKwNTcnMTQuMCJX!5e0!3m2!1ses!2sdo!4v1636136155986!5m2!1ses!2sdo" 
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>© 2024 Nombre de la Empresa. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Código JavaScript para hacer que el carrusel se mueva
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.querySelector('.carousel-track');
+            const slides = Array.from(track.children);
+            const nav = document.querySelector('.carousel-nav');
+            let currentSlide = 0;
+            
+            // Función para obtener el ancho (necesario para la animación)
+            const getSlideWidth = () => slides.length > 0 ? slides[0].getBoundingClientRect().width : 0;
+            let slideWidth = getSlideWidth();
+
+            // Actualizar el ancho en caso de redimensionamiento (responsive)
+            window.addEventListener('resize', () => {
+                slideWidth = getSlideWidth();
+                // Mueve el carrusel a la posición correcta después de redimensionar
+                track.style.transform = 'translateX(-' + currentSlide * slideWidth + 'px)';
+            });
+
+            // Función para mover el carrusel
+            const moveToSlide = (track, targetSlide) => {
+                track.style.transform = 'translateX(-' + targetSlide * slideWidth + 'px)';
+                currentSlide = targetSlide;
+                updateDots(currentSlide);
+            }
+
+            // Crea los puntos de navegación si no existen
+            if (nav.children.length === 0) {
+                slides.forEach((slide, index) => {
+                    const dot = document.createElement('span');
+                    dot.classList.add('carousel-dot');
+                    if (index === 0) dot.classList.add('active');
+                    
+                    dot.addEventListener('click', () => {
+                        moveToSlide(track, index);
+                    });
+                    nav.appendChild(dot);
+                });
+            }
+
+
+            // Actualiza el punto activo
+            const updateDots = (index) => {
+                const dots = Array.from(nav.children);
+                dots.forEach(dot => dot.classList.remove('active'));
+                if (dots[index]) {
+                     dots[index].classList.add('active');
+                }
+            }
+
+            // Lógica de avance automático
+            const autoSlide = () => {
+                const nextSlide = (currentSlide + 1) % slides.length;
+                moveToSlide(track, nextSlide);
+            }
+
+            // Inicia el avance automático cada 5 segundos, solo si hay más de una diapositiva
+            if (slides.length > 1) {
+                setInterval(autoSlide, 5000); 
+            } else {
+                 nav.style.display = 'none'; // Oculta los puntos si solo hay una slide
+            }
+        });
+    </script>
+
+</body>
+</html>
